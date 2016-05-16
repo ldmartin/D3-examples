@@ -8,7 +8,8 @@
 
     .states {
         fill: none;
-        stroke: #fff;
+        /*stroke: #fff;*/
+        stroke: #000000;
         stroke-linejoin: round;
     }
 
@@ -51,20 +52,28 @@
 
     queue()
 //            .defer(d3.json, "/mbostock/raw/4090846/us.json")
-            .defer(d3.json, "usmap.json")
-            .defer(d3.tsv, "unemployment.tsv", function(d) { rateById.set(d.id, +d.rate); })
+            .defer(d3.json, "data/usmap.json")
+            .defer(d3.tsv, "data/unemployment.tsv", function(d) { rateById.set(d.id, +d.rate); })
             .await(ready);
 
     function ready(error, us) {
         if (error) throw error;
 
-        svg.append("g")
-                .attr("class", "counties")
-                .selectAll("path")
-                .data(topojson.feature(us, us.objects.counties).features)
-                .enter().append("path")
-                .attr("class", function(d) { return quantize(rateById.get(d.id)); })
-                .attr("d", path);
+//        svg.append("g")
+//                .attr("class", "counties")
+//                .selectAll("path")
+//                .data(topojson.feature(us, us.objects.counties).features)
+//                .enter().append("path")
+//                .attr("class", function(d) { return quantize(rateById.get(d.id)); })
+//                .attr("d", path);
+
+//        svg.append("g")
+//                .attr("class", "counties")
+//                .selectAll("path")
+//                .data(topojson.feature(us, us.objects.counties).features)
+//                .enter().append("path")
+//                .attr("class", function(d) { return quantize(rateById.get(d.id)); })
+//                .attr("d", path);
 
         svg.append("path")
                 .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
